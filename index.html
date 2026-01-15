@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상품 검색</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Noto Sans KR", sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background: #eef5fb;
+    padding: 20px;
+  }
+
+  /* 검색 영역 */
+  .search-box {
+    background: #fff;
+    border-radius: 30px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  }
+
+  .search-box input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+    margin-left: 10px;
+  }
+
+  .hint {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .dots {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 20px;
+  }
+
+  .popular-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  /* 카드 리스트 */
+  .item {
+    background: #fff;
+    border-radius: 18px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+  }
+
+  .item img {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 14px;
+  }
+
+  .item-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .no-result {
+    text-align: center;
+    color: #666;
+    margin-top: 40px;
+    display: none;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- 검색 -->
+<div class="search-box">
+  🔍
+  <input type="text" id="searchInput" placeholder="검색어를 입력해주세요.">
+</div>
+
+<div class="hint">
+  👉 상품 번호로 검색해보세요 👈
+</div>
+
+<div class="dots">• • •</div>
+
+<div class="popular-title">👑 인기템 👑</div>
+
+<!-- 리스트 -->
+<div id="itemList">
+
+  <div class="item" data-keyword="1 공간 활용 접이식 테이블 쿠팡">
+    <img src="https://via.placeholder.com/150">
+    <div class="item-title">1. 공간 활용 접이식 테이블 (쿠팡)</div>
+  </div>
+
+  <div class="item" data-keyword="1 공간 활용 접이식 테이블 오늘의집">
+    <img src="https://via.placeholder.com/150">
+    <div class="item-title">1. 공간 활용 접이식 테이블 (오늘의집)</div>
+  </div>
+
+  <div class="item" data-keyword="259 붙이는 문">
+    <img src="https://via.placeholder.com/150">
+    <div class="item-title">259. 붙이는 문</div>
+  </div>
+
+  <div class="item" data-keyword="247 무타공 슬라이딩 중문">
+    <img src="https://via.placeholder.com/150">
+    <div class="item-title">247. 무타공 슬라이딩 중문</div>
+  </div>
+
+</div>
+
+<div class="no-result" id="noResult">
+  검색 결과가 없습니다.
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const items = document.querySelectorAll('.item');
+  const noResult = document.getElementById('noResult');
+
+  searchInput.addEventListener('input', function () {
+    const keyword = this.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      const data = item.dataset.keyword.toLowerCase();
+      if (data.includes(keyword)) {
+        item.style.display = 'flex';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    noResult.style.display = visibleCount === 0 ? 'block' : 'none';
+  });
+</script>
+
+</body>
+</html>
